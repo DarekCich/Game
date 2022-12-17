@@ -107,7 +107,9 @@
     outline: none;
 }
 .navBar{
-
+    position: fixed;
+    width: 100%;
+    height: 50px;
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
@@ -200,16 +202,9 @@
 body{
     /*background: linear-gradient(to right top,#1b1b1b,#38ccae);*/
     background: radial-gradient(#27638d, #2a4b5d);
-
-    height: 100vh;
-    width: 100vw;
-
-}
-*{
-    box-sizing: border-box;
     margin: 0;
-    padding: 0;
 }
+
 canvas{
 
 }
