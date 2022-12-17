@@ -1,3 +1,8 @@
+:root {
+    --mainColor1: #676767;
+
+
+}
 .button-82-pushable {
     position: relative;
     border: none;
@@ -102,6 +107,8 @@
     outline: none;
 }
 .navBar{
+
+    padding-top: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -112,7 +119,9 @@
     width: fit-content;
 }
 .scoreSite{
+    color: white;
     width: 30%;
+    padding-left: 5px;
 }
 .upgradeSite{
     width: 30%;
@@ -135,25 +144,27 @@
     z-index: 1; /* Stay on top */
     top: 0;
     right:  -0;
-    background-color: #949090; /* Black*/
+    background-color: rgba(148, 144, 144, 0.05); /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+    backdrop-filter: blur(8px);
+
 }
 
 /* The sidebar links */
 .sidebar a {
+    color: white;
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #ffffff;
     display: block;
     transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
-    color: #f1f1f1;
+    color: #e18c8c;
 }
 
 /* Position and style the close button (top right corner) */
@@ -167,6 +178,7 @@
     cursor: pointer;
     background-color: #504949;
     color: white;
+    opacity: 90%;
 }
 
 .openbtn:hover {
@@ -185,7 +197,20 @@
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
 }
+body{
+    /*background: linear-gradient(to right top,#1b1b1b,#38ccae);*/
+    background: radial-gradient(#27638d, #2a4b5d);
 
+    height: 100vh;
+    width: 100vw;
 
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+canvas{
 
+}
 
