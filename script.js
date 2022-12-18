@@ -52,7 +52,6 @@ const y = canvas.height/2;
 const player = new Player(x,y,30,"#676767FF")
 
 const projectiles=[];
-//const projectile = new Projectile(x,y,5,'red', {x:5,y:5});
 window.addEventListener('click',(event)=>{
     const angle = Math.atan2(event.clientY-y,event.clientX-x);
     const velocity={
