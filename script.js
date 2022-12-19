@@ -85,7 +85,7 @@ class Enemy{
 
 }
 
-const player = new Player(x,y,30,"#676767FF")
+const player = new Player(x,y,50,"#676767FF")
 
 const projectiles=[];
 const enemies=[];
@@ -109,10 +109,20 @@ window.addEventListener('resize',()=>{
 function spawnEnemies(){
     setInterval(()=>{
         if(stop){
-            let xE=100;
-            let yE=100;
-            const angle = Math.atan2(y-yE,x-xE);
+            let xE;
+            let yE;
             let radius=30;
+            if(Math.random()<0.5){
+                xE=Math.random()<0.5? 0-radius:radius+canvas.width;
+                yE=Math.random()*canvas.height;
+            }
+            else{
+                xE=Math.random()*canvas.width;
+                yE=Math.random()<0.5? 0-radius:radius+canvas.height;
+            }
+
+            const angle = Math.atan2(y-yE,x-xE);
+
             let color='green'
             let velocity={
                 x:Math.cos(angle)*2,
