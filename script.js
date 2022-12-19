@@ -108,10 +108,13 @@ window.addEventListener('resize',()=>{
 })
 function spawnEnemies(){
     setInterval(()=>{
-        if(stop){
+        // Jesli wcisnelismy stop
+        // maksymalna ilosc wrogów na ekranie
+        if(stop && enemies.length<5)
+        {
             let xE;
             let yE;
-            let radius=30;
+            let radius=Math.random()*(30-10)+10;
             if(Math.random()<0.5){
                 xE=Math.random()<0.5? 0-radius:radius+canvas.width;
                 yE=Math.random()*canvas.height;
