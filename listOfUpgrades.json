@@ -1,0 +1,36 @@
+{
+  "upgrades": [
+    {
+      "id" : 0,
+      "name" : "size",
+      "cost" : 2,
+      "maxLevel": 5,
+      "baseValue": 5,
+      "upPerLevel": 1
+    },
+    {
+      "id" : 1,
+      "name" : "speed",
+      "cost" : 4,
+      "maxLevel": 5,
+      "baseValue": 1,
+      "upPerLevel": 0.25
+    },
+    {
+      "id" : 2,
+      "name" : "name3",
+      "cost" : 8,
+      "maxLevel": 5,
+      "baseValue": 1,
+      "upPerLevel": 0.25
+    },
+    {
+      "id" : 3,
+      "name" : "name4",
+      "cost" : 15,
+      "maxLevel": 5,
+      "baseValue": 1,
+      "upPerLevel": 0.25
+    }
+  ]
+}
