@@ -186,7 +186,6 @@ function loadUpgrades(){
             for(let i = 0; i<jsondata.upgrades.length; i++){
                 allUpgrades.push(new Upgrade(jsondata.upgrades[i]));
             }
-
         });
 }
 //main
