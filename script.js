@@ -61,8 +61,38 @@ class Enemy{
         this.draw();
     }
 }
-class Upgrade{}
-
+class Upgrade{
+    constructor(jsonData) {
+        this.id         = jsonData.id;
+        this.name       = jsonData.name;
+        this.cost       = jsonData.cost;
+        this.maxLevel   = jsonData.maxLevel;
+        this.baseValue  = jsonData.baseValue;
+        this.upPerLevel = jsonData.upPerLevel;
+    }
+}
+class UpgradeContainer{
+    constructor(upgrade,list) {
+        this.id         = upgrade.id;
+        this.name       = upgrade.name;
+        this.cost       = upgrade.cost;
+        this.value      = upgrade.baseValue;
+        this.box         = document.createElement("DIV");
+        let button      = document.createElement("BUTTON");
+        button.setAttribute("id","upgButt"+this.id);
+        let buttonText = document.createTextNode(this.cost);
+        let boxName = document.createTextNode(this.cost);
+        let boxValue = document.createTextNode(this.value);
+        button.appendChild(buttonText);
+        this.box.appendChild(boxName);
+        this.box.appendChild(boxValue);
+        this.box.appendChild(button);
+        this.addElemet(list);
+    }
+    addElemet(list){
+        list.insertBefore(this.box,list.childNodes[0])
+    }
+}
 //interface menu
 function openNav() {
     if(document.getElementById("mySidebar").style.width === "250px"){
@@ -108,7 +138,8 @@ canvas.width    = innerWidth;
 canvas.height   = innerHeight;
 let c           = canvas.getContext('2d');
 let upgrades    = document.querySelector(".upgrades");
-let allUpgrades = [];
+const allUpgrades = [];
+
 let stop        = true;
 let x           = canvas.width/2;
 let y           = canvas.height/2;
@@ -173,22 +204,41 @@ function animate(){
         }
         )
     }
-
 }
 function loadUpgrades(){
     fetch("./listOfUpgrades.json")
         .then(response => {
             return response.json();
         })
-        .then(jsondata => {
+        .then(jsonData => {
             //  CREATE AND SAVE UPGRADES IN upgradeList
-
-            for(let i = 0; i<jsondata.upgrades.length; i++){
-                allUpgrades.push(new Upgrade(jsondata.upgrades[i]));
+            for(let i = 0; i<jsonData.upgrades.length; i++){
+                allUpgrades.push(new Upgrade(jsonData.upgrades[i]));
+                let box         = document.createElement("UL");
+                let button      = document.createElement("BUTTON");
+                let boxName     = document.createTextNode(allUpgrades[i].name);
+                let boxValue    = document.createTextNode(allUpgrades[i].value);
+                button.setAttribute("id","upgButt");
+                button.setAttribute("value", allUpgrades[i].id);
+                button.setAttribute("onClick","funkcja(this.value)");
+                button.textContent= allUpgrades[i].cost;
+                box.innerHTML="<tr>cena: </tr><tr>nazwa </tr>"
+                box.setAttribute("class","upgrade")
+                box.appendChild(boxName);
+                box.appendChild(boxValue);
+                box.appendChild(button);
+                upgrades.appendChild(box);
             }
         });
 }
+function funkcja(value){
+    console.log(value);
+}
+function loadlist(){
+   // console.log(allUpgrades.length)
+}
 //main
-loadUpgrades();
+loadUpgrades()
+loadlist();
 spawnEnemies();
 animate();

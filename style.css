@@ -208,4 +208,7 @@ body{
 canvas{
 
 }
-
+.upgrade{
+    height: 60px;
+    display: flex;
+}
