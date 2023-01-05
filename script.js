@@ -68,7 +68,7 @@ class Enemy{
             changeCash(-this.radius*2)
         }
         else{
-            stop=false;
+            changeStop();
             cash=0;
             enemies = [];
         }
@@ -99,10 +99,14 @@ function openNav() {
     }
 }
 function changeStop() {
-    if(stop === true)
+    if(stop === true){
         stop=false;
+        stopButton.innerHTML="START";
+    }
+
     else{
         stop=true;
+        stopButton.innerHTML="STOP";
         animate();
     }
 }
@@ -133,6 +137,7 @@ canvas.height   = innerHeight;
 let c           = canvas.getContext('2d');
 let upgrades    = document.querySelector(".upgrades");
 let countOfCash    = document.querySelector(".countOfCash");
+let stopButton    = document.querySelector(".button-82-front");
 const allUpgrades = [];
 let cash = 0;
 let stop        = true;
@@ -176,6 +181,9 @@ function spawnEnemies(){
 }
 function animate(){
     if(stop){
+        if(document.hidden){
+            changeStop();
+        }
         requestAnimationFrame(animate)
         c.clearRect(0,0,canvas.width,canvas.height)
         player.draw();
