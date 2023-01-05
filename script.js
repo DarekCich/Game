@@ -13,9 +13,9 @@ class Player{
         this.canvas.fillStyle=this.color;
         this.canvas.fill();
     }
-    update(){
-        this.x= this.canvas.width/2;
-        this.y= this.canvas.width/2;
+    update(x,y){
+        this.x= x
+        this.y= y;
     }
 }
 class Projectile{
@@ -60,6 +60,20 @@ class Enemy{
         this.y=this.y+this.velocity.y;
         this.draw();
     }
+    dead(){
+        changeCash(Math.random()*100%this.radius)
+    }
+    kill(){
+        if( cash>= this.radius*2){
+            changeCash(-this.radius*2)
+        }
+        else{
+            stop=false;
+            cash=0;
+            enemies = [];
+        }
+
+    }
 }
 class Upgrade{
     constructor(jsonData) {
@@ -98,10 +112,10 @@ window.addEventListener('click',(event)=>{
 
     let angle = Math.atan2(event.clientY-y,event.clientX-x);
     let velocity={
-        x:Math.cos(angle),
-        y:Math.sin(angle)
+        x:Math.cos(angle)*1.5,
+        y:Math.sin(angle)*1.5
     }
-    projectiles.push(new Projectile(x,y,5,'red',velocity,c))
+    projectiles.push(new Projectile(x,y,5,'red',velocity,c,angle))
 
 })
 window.addEventListener('resize',()=>{
@@ -109,7 +123,7 @@ window.addEventListener('resize',()=>{
     canvas.height= innerHeight;
     x = canvas.width/2;
     y = canvas.height/2;
-    player.update();
+    player.update(x,y);
 })
 
 //variable
@@ -118,15 +132,16 @@ canvas.width    = innerWidth;
 canvas.height   = innerHeight;
 let c           = canvas.getContext('2d');
 let upgrades    = document.querySelector(".upgrades");
+let countOfCash    = document.querySelector(".countOfCash");
 const allUpgrades = [];
-
+let cash = 0;
 let stop        = true;
 let x           = canvas.width/2;
 let y           = canvas.height/2;
 // objects
 const player        = new Player(canvas.width/2,canvas.height/2,50,"#676767FF",c)
 const projectiles   = [];
-const enemies       = [];
+let enemies       = [];
 
 //function of game
 function spawnEnemies(){
@@ -151,8 +166,8 @@ function spawnEnemies(){
 
             let color='green'
             let velocity={
-                x:Math.cos(angle)*2,
-                y:Math.sin(angle)*2
+                x:Math.cos(angle)*1.25,
+                y:Math.sin(angle)*1.15
             }
             enemies.push(new Enemy(xE,yE,radius,color,velocity,c))
         }
@@ -175,15 +190,26 @@ function animate(){
         enemies.forEach((enemy, enemyId)=>{
             enemy.update();
             projectiles.forEach((projectile, projectileId)=>{
-                const dist= Math.hypot(projectile.x-enemy.x,projectile.y-enemy.y)
+                let dist= Math.hypot(projectile.x-enemy.x,projectile.y-enemy.y)
                 if (dist<=projectile.radius+enemy.radius){
                     projectiles.splice(projectileId,1);
+                    enemies[enemyId].dead();
                     enemies.splice(enemyId,1);
                 }
             })
+            let dist= Math.hypot(x-enemy.x,y-enemy.y)
+            if (dist<=enemy.radius+player.radius){
+                enemy.kill();
+                enemies.splice(enemyId,1);
+            }
         }
         )
     }
+}
+function changeCash(x){
+    cash+=Math.round(x);
+    countOfCash.innerHTML=`${cash}`;
+
 }
 function loadUpgrades(){
     fetch("./listOfUpgrades.json")
@@ -207,11 +233,7 @@ function loadUpgrades(){
 function funkcja(value){
     console.log(value);
 }
-function loadlist(){
-   // console.log(allUpgrades.length)
-}
 //main
 loadUpgrades()
-loadlist();
 spawnEnemies();
 animate();
