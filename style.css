@@ -203,6 +203,7 @@ body{
     /*background: linear-gradient(to right top,#1b1b1b,#38ccae);*/
     background: radial-gradient(#27638d, #2a4b5d);
     margin: 0;
+    cursor: url("./images/img.png"), auto;
 }
 
 canvas{

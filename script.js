@@ -71,6 +71,7 @@ class Enemy{
             changeStop();
             cash=0;
             enemies = [];
+            projectiles=[];
         }
 
     }
@@ -113,13 +114,16 @@ function changeStop() {
 
 //listeners
 window.addEventListener('click',(event)=>{
+    if(stop){
 
-    let angle = Math.atan2(event.clientY-y,event.clientX-x);
-    let velocity={
-        x:Math.cos(angle)*1.5,
-        y:Math.sin(angle)*1.5
+        let angle = Math.atan2(event.clientY-y,event.clientX-x);
+        let velocity={
+            x:Math.cos(angle)*1.5,
+            y:Math.sin(angle)*1.5
+        }
+        projectiles.push(new Projectile(x,y,5,'red',velocity,c,angle))
     }
-    projectiles.push(new Projectile(x,y,5,'red',velocity,c,angle))
+
 
 })
 window.addEventListener('resize',()=>{
@@ -145,7 +149,7 @@ let x           = canvas.width/2;
 let y           = canvas.height/2;
 // objects
 const player        = new Player(canvas.width/2,canvas.height/2,50,"#676767FF",c)
-const projectiles   = [];
+let projectiles   = [];
 let enemies       = [];
 
 //function of game
